@@ -1,0 +1,24 @@
+{
+  "KPlugin": {
+    "Authors": [
+      {
+        "Email": "jurgenacc@tutanota.com",
+        "Name": "Jurgen Cruz"
+      }
+    ],
+    "Category": "Application Launchers",
+    "Description": "A simple launcher menu",
+    "Description[es]": "Un menu lanzador sencillo",
+    "Icon": "start-here-kde",
+    "Id": "com.github.jurgencruz.simplemenu",
+    "Name": "Simple Menu",
+    "Name[es]": "Menu Simple",
+    "Version": "1.0",
+    "Website": ""
+  },
+  "X-Plasma-API": "declarativeappletscript",
+  "KPackageStructure": "Plasma/Applet",
+  "X-Plasma-Provides": [
+    "org.kde.plasma.launchermenu"
+  ]
+}

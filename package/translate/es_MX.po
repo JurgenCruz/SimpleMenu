@@ -1,0 +1,86 @@
+# Translation of SimpleMenu in es_MX
+# Copyright (C) 2024
+# This file is distributed under the same license as the SimpleMenu package.
+# Jurgen Cruz <jurgenacc@tutanota.com>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SimpleMenu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-26 09:13-0500\n"
+"PO-Revision-Date: 2024-01-26 09:13-0500\n"
+"Last-Translator: Jurgen Cruz <jurgenacc@tutanota.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: es_MX\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../contents/config/config.qml
+msgid "General"
+msgstr "General"
+
+#: ../contents/ui/code/tools.js
+msgid "Remove from Favorites"
+msgstr "Quitar de Favoritos"
+
+#: ../contents/ui/code/tools.js
+msgid "Add to Favorites"
+msgstr "Agregar a Favoritos"
+
+#: ../contents/ui/code/tools.js
+msgid "On All Activities"
+msgstr "En Todas las Actividades"
+
+#: ../contents/ui/code/tools.js
+msgid "On the Current Activity"
+msgstr "En la Actividad Actual"
+
+#: ../contents/ui/code/tools.js
+msgid "Show in Favorites"
+msgstr "Mostrar en Favoritos"
+
+#: ../contents/ui/configGeneral.qml
+msgid "Icon:"
+msgstr "Ícono: "
+
+#: ../contents/ui/configGeneral.qml
+msgid "Size of icons:"
+msgstr "Tamaño de los íconos:"
+
+#: ../contents/ui/configGeneral.qml
+msgid "Small"
+msgstr "Pequeño"
+
+#: ../contents/ui/configGeneral.qml
+msgid "Medium"
+msgstr "Mediano"
+
+#: ../contents/ui/configGeneral.qml
+msgid "Large"
+msgstr "Grande"
+
+#: ../contents/ui/configGeneral.qml
+msgid "Huge"
+msgstr "Enorme"
+
+#: ../contents/ui/configGeneral.qml
+msgid "Show separators for All Apps Menu:"
+msgstr "Mostrar separadores para el Menu de Todas las aplicaciones:"
+
+#: ../contents/ui/configGeneral.qml
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: ../contents/ui/SimpleMenu.qml
+msgid "Search..."
+msgstr "Buscar..."
+
+#: ../contents/ui/SimpleMenu.qml
+msgid "All apps"
+msgstr "Todas las aplicaciones"
+
+#: ../contents/ui/SimpleMenu.qml
+msgid "Favorites"
+msgstr "Favoritos"
