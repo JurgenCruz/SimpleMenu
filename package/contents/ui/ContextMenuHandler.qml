@@ -26,13 +26,17 @@ Item {
     property var margin
 
     function buildAndShowMenu(itemIndex: int, actions: list, x: real, y: real, handler: Item) {
+        close();
+        contextMenu = contextMenuComponent.createObject(contextMenuHandler);
+        fillMenu(contextMenu, itemIndex, actions, handler);
+        contextMenu.popup(x, y);
+    }
+
+    function close() {
         if (contextMenu) {
             contextMenu.close()
             contextMenu.destroy()
         }
-        contextMenu = contextMenuComponent.createObject(contextMenuHandler);
-        fillMenu(contextMenu, itemIndex, actions, handler);
-        contextMenu.popup(x, y);
     }
 
     function fillMenu(menu: PlasmaComponents.Menu, itemIndex: int, actions: list, handler: Item) {

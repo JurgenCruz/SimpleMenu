@@ -42,6 +42,7 @@ Item {
         searchField.clear();
         forceAllApps = false;
         searchField.focus = true;
+        contextMenuHandler.close();
     }
 
     function colorWithAlpha(color: color, alpha: real): color {
