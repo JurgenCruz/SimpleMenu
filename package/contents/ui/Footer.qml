@@ -25,70 +25,83 @@ import org.kde.plasma.private.kicker 0.1
 import org.kde.kcoreaddons 1.0 as KCoreAddons
 import org.kde.plasma.components 3.0 as PlasmaComponents3
 
-RowLayout {
-    spacing: launcherMenu.margin
+FocusScope {
+    RowLayout {
+        anchors.fill: parent
+        spacing: launcherMenu.margin
 
-    SystemModel {
-        id: systemModel
-    }
-
-    KCoreAddons.KUser {
-        id: kuser
-    }
-
-    Rectangle {
-        Layout.alignment: Qt.AlignHCenter
-        color: 'transparent'
-        width: PlasmaCore.Units.iconSizes.smallMedium
-        height: width
-
-        PlasmaCore.IconItem {
-            id: iconUser
-            source: kuser.faceIconUrl.toString() || "user-identity"
-            anchors.fill: parent
+        SystemModel {
+            id: systemModel
         }
-    }
 
-    PlasmaExtras.Heading {
-        wrapMode: Text.NoWrap
-        color: theme.textColor
-        level: 3
-        text: qsTr(kuser.fullName)
-    }
+        KCoreAddons.KUser {
+            id: kuser
+        }
 
-    Rectangle {
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-        color: 'transparent'
+        Rectangle {
+            Layout.alignment: Qt.AlignHCenter
+            color: 'transparent'
+            width: PlasmaCore.Units.iconSizes.smallMedium
+            height: width
 
-        PlasmaComponents.ContextMenu {
-            id: contextMenu
-
-            PlasmaComponents.MenuItem {
-                action: plasmoid.action("configure")
+            PlasmaCore.IconItem {
+                id: iconUser
+                source: kuser.faceIconUrl.toString() || "user-identity"
+                anchors.fill: parent
             }
         }
 
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.RightButton
-            onClicked: (mouse) => {
-                if (mouse.button == Qt.RightButton) {
-                    contextMenu.open(mouse.x, mouse.y);
+        PlasmaExtras.Heading {
+            wrapMode: Text.NoWrap
+            color: theme.textColor
+            level: 3
+            text: qsTr(kuser.fullName)
+        }
+
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            color: 'transparent'
+
+            PlasmaComponents.ContextMenu {
+                id: contextMenu
+
+                PlasmaComponents.MenuItem {
+                    action: plasmoid.action("configure")
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.RightButton
+                onClicked: (mouse) => {
+                    if (mouse.button == Qt.RightButton) {
+                        contextMenu.open(mouse.x, mouse.y);
+                    }
                 }
             }
         }
-    }
 
-    Repeater {
-        model: systemModel
-        delegate: PlasmaComponents3.ToolButton
-        {
-            icon.name: model.decoration
-            onClicked: systemModel.trigger(index, "", null);
-            ToolTip.delay: 300
-            ToolTip.visible: hovered
-            ToolTip.text: model.display
+        Repeater {
+            model: systemModel
+            PlasmaComponents3.ToolButton {
+                activeFocusOnTab: true
+                focus: index === 0
+                icon.name: model.decoration
+                onClicked: systemModel.trigger(index, "", null)
+                ToolTip.delay: 300
+                ToolTip.visible: hovered
+                ToolTip.text: model.display
+            }
+
+            onCountChanged: {
+                let child = itemAt(0);
+                for (let i = 1; i < count; i++) {
+                    let sibling = itemAt(i);
+                    child.KeyNavigation.right = sibling;
+                    child = sibling;
+                }
+            }
         }
     }
 }

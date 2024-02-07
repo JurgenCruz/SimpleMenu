@@ -25,12 +25,13 @@ import org.kde.kirigami 2.10 as Kirigami
 import "code/tools.js" as Tools
 import com.github.jurgencruz.simplemenu 1.0 as SimpleMenu
 
-Item {
+FocusScope {
     id: launcherMenu
     Layout.minimumWidth: 500
     Layout.maximumWidth: 500
     Layout.preferredWidth: 500
     Layout.preferredHeight: plasmoid.screenGeometry.height - 100
+    focus: true
     property bool showLetterSeparator: plasmoid.configuration.showLetterSeparator
     property bool searching: searchField.text != ""
     property bool forceAllApps: false
@@ -41,7 +42,7 @@ Item {
     function reset() {
         searchField.clear();
         forceAllApps = false;
-        searchField.focus = true;
+        searchField.forceActiveFocus();
         contextMenuHandler.close();
     }
 
@@ -84,7 +85,6 @@ Item {
     //Actual Menu
     ColumnLayout {
         anchors.fill: parent
-        //focus: true
         state: 'favorites'
         states: [
             State {
@@ -172,9 +172,9 @@ Item {
             }]
 
         //Search Panel
-        Rectangle {
+        FocusScope {
             Layout.fillWidth: true
-            color: 'transparent'
+            focus: true
             height: searchField.implicitHeight + (launcherMenu.margin * 2)
 
             RowLayout {
@@ -197,10 +197,10 @@ Item {
                     }
                 }
 
-                Rectangle {
+                FocusScope {
                     Layout.fillWidth: true
-                    color: 'transparent'
                     height: searchField.implicitHeight
+                    focus: true
 
                     PlasmaComponents3.TextField {
                         id: searchField
@@ -210,6 +210,7 @@ Item {
                         placeholderText: i18n("Search...")
                         placeholderTextColor: colorWithAlpha(theme.textColor, 0.6)
                         onTextChanged: runnerModel.query = text;
+                        KeyNavigation.down: favoritesVisible ? favoritesList : searching ? searchList : allAppsList
 
                         function clear() {
                             text = "";
@@ -217,9 +218,9 @@ Item {
 
                         Keys.onPressed: event => {
                             if (event.key === Qt.Key_Escape) {
-                                event.accepted = true
+                                event.accepted = true;
                                 if (text != "") {
-                                    clear()
+                                    clear();
                                 } else {
                                     root.close();
                                 }
@@ -231,11 +232,10 @@ Item {
         }
 
         //Favorites Page
-        Rectangle {
+        FocusScope {
             id: favoritesPage
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: 'transparent'
 
             ColumnLayout {
                 anchors.fill: parent
@@ -261,6 +261,7 @@ Item {
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                     model: favoritesModel
+                    KeyNavigation.down: btnGoAllApps
                     delegate: FavoritesItemDelegate {
                         margin: launcherMenu.margin
                     }
@@ -273,22 +274,26 @@ Item {
                         const actions = Tools.getActions(i18n, actionList, rootModel.favoritesModel, item.favoriteId);
                         contextMenuHandler.buildAndShowMenu(index, actions, x, y, favoriteHandler);
                     }
+                    onUpKeyLimit: {
+                        searchField.forceActiveFocus();
+                    }
                 }
 
                 //All Apps Button
-                Rectangle {
+                FocusScope {
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-                    color: 'transparent'
                     height: btnGoAllApps.height
 
                     PlasmaComponents3.Button {
                         anchors.fill: parent
                         id: btnGoAllApps
+                        focus: true
                         icon.name: "go-next"
                         text: i18n("All apps")
+                        KeyNavigation.down: footer
                         onClicked: {
-                            forceAllApps = true
+                            forceAllApps = true;
                         }
                     }
                 }
@@ -296,11 +301,10 @@ Item {
         }
 
         //All Apps Page
-        Rectangle {
+        FocusScope {
             id: allAppsPage
             Layout.fillWidth: true
             Layout.fillHeight: true
-            color: 'transparent'
 
             ColumnLayout {
                 anchors.fill: parent
@@ -328,6 +332,7 @@ Item {
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                     visible: searching ? 0 : 1
+                    KeyNavigation.down: btnGoFavorites
                     delegate: FavoritesItemDelegate {
                         margin: launcherMenu.margin
                     }
@@ -341,6 +346,9 @@ Item {
                         const actionList = hasActionList ? item.actionList : [];
                         const actions = Tools.getActions(i18n, actionList, info.model.favoritesModel, item.favoriteId);
                         contextMenuHandler.buildAndShowMenu(index, actions, x, y, allAppsHandler);
+                    }
+                    onUpKeyLimit: {
+                        searchField.forceActiveFocus();
                     }
                 }
 
@@ -362,6 +370,7 @@ Item {
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                     visible: searching ? 1 : 0
+                    KeyNavigation.down: btnGoFavorites
                     delegate: FavoritesItemDelegate {
                         margin: launcherMenu.margin
                     }
@@ -376,20 +385,25 @@ Item {
                         const actions = Tools.getActions(i18n, actionList, info.model.favoritesModel, item.favoriteId);
                         contextMenuHandler.buildAndShowMenu(index, actions, x, y, searchHandler);
                     }
+                    onUpKeyLimit: {
+                        searchField.forceActiveFocus();
+                    }
                 }
 
                 //Go to Favorites Button
-                Rectangle {
+                FocusScope {
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-                    color: 'transparent'
                     height: btnGoFavorites.height
 
                     PlasmaComponents3.Button {
                         anchors.fill: parent
                         id: btnGoFavorites
+                        focus: true
                         icon.name: 'go-previous'
                         text: i18n("Favorites")
+                        KeyNavigation.up: searching ? searchList : allAppsList
+                        KeyNavigation.down: footer
 
                         onClicked: {
                             forceAllApps = false
@@ -401,14 +415,15 @@ Item {
         }
 
         //Footer
-        PlasmaExtras.PlasmoidHeading {
-            id: footer
+        FocusScope {
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-            position: PlasmaComponents3.ToolBar.Footer
+            height: PlasmaCore.Units.iconSizes.smallMedium + 2 * launcherMenu.margin
 
             Footer {
+                id: footer
                 anchors.fill: parent
+                KeyNavigation.up: favoritesVisible ? btnGoAllApps : btnGoFavorites
             }
         }
 

@@ -18,14 +18,17 @@
 import QtQuick 2.15
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
-Rectangle {
-    color: 'transparent'
+FocusScope {
     property alias model: listView.model
     property alias delegate: listView.delegate
 
     signal click(item: var, index: int)
 
     signal rightClick(item: var, index: int, x: real, y: real)
+
+    signal upKeyLimit()
+
+    signal downKeyLimit()
 
     MouseArea {
         id: hoverArea
@@ -74,6 +77,7 @@ Rectangle {
         anchors.fill: parent
         clip: true
         activeFocusOnTab: true
+        focus: true
         boundsBehavior: Flickable.StopAtBounds
         highlight: PlasmaComponents.Highlight
         {
@@ -82,10 +86,92 @@ Rectangle {
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 0
         Keys.onPressed: event => {
-            if (event.key === Qt.Key_Enter || event.key === Qt.Key_Return) {
-                event.accepted = true;
-                click(currentItem, currentIndex);
+            switch (event.key) {
+                case Qt.Key_Enter:
+                case Qt.Key_Return:
+                    click(currentItem, currentIndex);
+                    break;
+                case Qt.Key_Up:
+                    if (!tryNavigateUp()) {
+                        upKeyLimit();
+                        // return;
+                    }
+                    break;
+                case Qt.Key_Down:
+                    if (!tryNavigateDown()) {
+                        downKeyLimit();
+                        return;
+                    }
+                    break;
+                default:
+                    return;
             }
+            event.accepted = true;
+        }
+
+        function tryNavigateUp(): boolean {
+            const newIndex = getNextAvailable(currentIndex, false);
+            if (newIndex === currentIndex) {
+                return false;
+            }
+
+            currentIndex = newIndex;
+            return true;
+        }
+
+        function tryNavigateDown(): boolean {
+            const newIndex = getNextAvailable(currentIndex, true);
+            if (newIndex === currentIndex) {
+                return false;
+            }
+
+            currentIndex = newIndex;
+            return true;
+        }
+
+        function getNextAvailable(ind, forward): int {
+            let i = ind;
+            while (true) {
+                if (forward) {
+                    if (i >= count - 1) {
+                        break;
+                    }
+                    ++i;
+                } else {
+                    if (i <= 0) {
+                        break;
+                    }
+                    --i;
+                }
+
+                if (getIsItemAvailable(i)) {
+                    return i;
+                }
+            }
+
+            return ind;
+        }
+
+        function getIsItemAvailable(ind): boolean {
+            if (ind < 0 || ind > count - 1) {
+                return false;
+            }
+
+            return itemAtIndex(ind).enabled;
+        }
+
+        function selectAvailableItem() {
+            if (!getIsItemAvailable(currentIndex)) {
+                currentIndex = getNextAvailable(currentIndex, true);
+            }
+        }
+
+        Component.onCompleted: {
+            selectAvailableItem();
+        }
+
+        onActiveFocusChanged: {
+            selectAvailableItem();
         }
     }
 }
