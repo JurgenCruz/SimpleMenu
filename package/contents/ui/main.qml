@@ -16,16 +16,16 @@
  ***************************************************************************/
 
 import QtQuick 2.15
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.private.kicker 0.1
-import org.kde.kitemmodels 1.0
+import org.kde.plasma.plasmoid
+import org.kde.plasma.private.kicker
+import org.kde.kitemmodels
 
-Item {
+PlasmoidItem {
     id: simpleMenu
     anchors.fill: parent
     Plasmoid.icon: plasmoid.configuration.icon
-    Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
-    Plasmoid.fullRepresentation: SimpleMenu {
+    preferredRepresentation: compactRepresentation
+    fullRepresentation: SimpleMenu {
         root: simpleMenu
     }
 
@@ -42,7 +42,6 @@ Item {
         showAllAppsCategorized: true
         showRecentApps: false
         showRecentDocs: false
-        showRecentContacts: false
         showPowerSession: false
 
         Component.onCompleted: {
@@ -62,13 +61,12 @@ Item {
         appletInterface: plasmoid
         favoritesModel: rootModel.favoritesModel
         mergeResults: false
-        deleteWhenEmpty: true
     }
 
     readonly property KSortFilterProxyModel favoritesModel: KSortFilterProxyModel
     {
         sourceModel: rootModel.favoritesModel
-        sortRole: "name"
+        sortRoleName: "name"
 
         function trigger(i: int, actionId: string, arguments) {
             var index = mapToSource(this.index(i, 0));
@@ -78,7 +76,7 @@ Item {
 
     signal reset()
 
-    Plasmoid.onExpandedChanged: {
+    onExpandedChanged: {
         reset();
     }
 

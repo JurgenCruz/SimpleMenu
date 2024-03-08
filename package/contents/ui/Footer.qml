@@ -18,12 +18,11 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.15
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.plasma.extras 2.0 as PlasmaExtras
-import org.kde.plasma.private.kicker 0.1
-import org.kde.kcoreaddons 1.0 as KCoreAddons
-import org.kde.plasma.components 3.0 as PlasmaComponents3
+import org.kde.plasma.extras as PlasmaExtras
+import org.kde.plasma.private.kicker
+import org.kde.coreaddons as KCoreAddons
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.kirigami as Kirigami
 
 FocusScope {
     RowLayout {
@@ -41,19 +40,19 @@ FocusScope {
         Rectangle {
             Layout.alignment: Qt.AlignHCenter
             color: 'transparent'
-            width: PlasmaCore.Units.iconSizes.smallMedium
+            width: Kirigami.Units.iconSizes.smallMedium
             height: width
 
-            PlasmaCore.IconItem {
+            Kirigami.Icon {
                 id: iconUser
                 source: kuser.faceIconUrl.toString() || "user-identity"
                 anchors.fill: parent
             }
         }
 
-        PlasmaExtras.Heading {
+        Kirigami.Heading {
             wrapMode: Text.NoWrap
-            color: theme.textColor
+            color: Kirigami.Theme.textColor
             level: 3
             text: qsTr(kuser.fullName)
         }
@@ -63,11 +62,11 @@ FocusScope {
             Layout.fillHeight: true
             color: 'transparent'
 
-            PlasmaComponents.ContextMenu {
+            PlasmaExtras.Menu {
                 id: contextMenu
 
-                PlasmaComponents.MenuItem {
-                    action: plasmoid.action("configure")
+                PlasmaExtras.MenuItem {
+                    action: plasmoid.internalAction("configure")
                 }
             }
 

@@ -17,11 +17,9 @@
 
 import QtQuick 2.15
 import QtQuick.Layouts 1.1
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.extras 2.0 as PlasmaExtras
-import org.kde.plasma.components 3.0 as PlasmaComponents3
-import org.kde.kirigami 2.10 as Kirigami
+import org.kde.plasma.plasmoid
+import org.kde.plasma.components as PlasmaComponents3
+import org.kde.kirigami as Kirigami
 import "code/tools.js" as Tools
 import com.github.jurgencruz.simplemenu 1.0 as SimpleMenu
 
@@ -30,7 +28,7 @@ FocusScope {
     Layout.minimumWidth: 500
     Layout.maximumWidth: 500
     Layout.preferredWidth: 500
-    Layout.preferredHeight: plasmoid.screenGeometry.height - 100
+    Layout.preferredHeight: plasmoid.containment.screenGeometry.height - 100
     focus: true
     property bool showLetterSeparator: plasmoid.configuration.showLetterSeparator
     property bool searching: searchField.text != ""
@@ -58,7 +56,7 @@ FocusScope {
         searchList.model = flattenModels(runnerModel, true);
     }
 
-    function flattenModels(model, includeCategories: boolean) {
+    function flattenModels(model, includeCategories: bool) {
         const result = [];
         const categories = [];
         for (let i = 0; i < model.rowCount(); i++) {
@@ -126,7 +124,7 @@ FocusScope {
                     PropertyAnimation {
                         target: favoritesPage
                         properties: "opacity,x"
-                        duration: PlasmaCore.Units.shortDuration * 2
+                        duration: Kirigami.Units.shortDuration * 2
                     }
                     PropertyAction {
                         target: favoritesPage
@@ -141,7 +139,7 @@ FocusScope {
                     PropertyAnimation {
                         target: allAppsPage
                         properties: "opacity,x"
-                        duration: PlasmaCore.Units.shortDuration * 2
+                        duration: Kirigami.Units.shortDuration * 2
                     }
                 }
             }, Transition {
@@ -151,7 +149,7 @@ FocusScope {
                     PropertyAnimation {
                         target: allAppsPage
                         properties: "opacity,x"
-                        duration: PlasmaCore.Units.shortDuration * 2
+                        duration: Kirigami.Units.shortDuration * 2
                     }
                     PropertyAction {
                         target: allAppsPage
@@ -166,7 +164,7 @@ FocusScope {
                     PropertyAnimation {
                         target: favoritesPage
                         properties: "opacity,x"
-                        duration: PlasmaCore.Units.shortDuration * 2
+                        duration: Kirigami.Units.shortDuration * 2
                     }
                 }
             }]
@@ -187,7 +185,7 @@ FocusScope {
 
                 Rectangle {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                    width: PlasmaCore.Units.iconSizes.small
+                    width: Kirigami.Units.iconSizes.small
                     height: width
                     color: 'transparent'
 
@@ -208,7 +206,7 @@ FocusScope {
                         activeFocusOnTab: true
                         focus: true
                         placeholderText: i18n("Search...")
-                        placeholderTextColor: colorWithAlpha(theme.textColor, 0.6)
+                        placeholderTextColor: colorWithAlpha(Kirigami.Theme.textColor, 0.6)
                         onTextChanged: runnerModel.query = text;
                         KeyNavigation.down: favoritesVisible ? favoritesList : searching ? searchList : allAppsList
 
@@ -418,7 +416,7 @@ FocusScope {
         FocusScope {
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-            height: PlasmaCore.Units.iconSizes.smallMedium + 2 * launcherMenu.margin
+            height: Kirigami.Units.iconSizes.smallMedium + 2 * launcherMenu.margin
 
             Footer {
                 id: footer

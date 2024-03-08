@@ -18,14 +18,15 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.15
-import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.plasma.components as PlasmaComponents
+import org.kde.kirigami as Kirigami
 
 Item {
     id: contextMenuHandler
     property var contextMenu
     property var margin
 
-    function buildAndShowMenu(itemIndex: int, actions: list, x: real, y: real, handler: Item) {
+    function buildAndShowMenu(itemIndex: int, actions, x: real, y: real, handler: Item) {
         close();
         contextMenu = contextMenuComponent.createObject(contextMenuHandler);
         fillMenu(contextMenu, itemIndex, actions, handler);
@@ -39,7 +40,7 @@ Item {
         }
     }
 
-    function fillMenu(menu: PlasmaComponents.Menu, itemIndex: int, actions: list, handler: Item) {
+    function fillMenu(menu: PlasmaComponents.Menu, itemIndex: int, actions, handler: Item) {
         let isSeparatorAdded = false;
         actions.forEach(function (action) {
             if (action.subActions) {
@@ -135,7 +136,7 @@ Item {
                         maximumLineCount: 1
                         elide: Text.ElideRight
                         wrapMode: Text.Wrap
-                        color: theme.textColor
+                        color: Kirigami.Theme.textColor
                         text: title
                     }
                 }

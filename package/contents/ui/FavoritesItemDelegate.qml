@@ -17,8 +17,8 @@
 
 import QtQuick 2.15
 import QtQuick.Layouts 1.1
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.plasma.components as PlasmaComponents
+import org.kde.kirigami as Kirigami
 
 Item {
     id: favoriteItemDelegate
@@ -54,14 +54,13 @@ Item {
             color: 'transparent'
             visible: !model.isSeparator
 
-            PlasmaCore.IconItem {
+            Kirigami.Icon {
                 anchors.fill: parent
                 anchors.leftMargin: favoriteItemDelegate.margin
                 anchors.topMargin: favoriteItemDelegate.margin
                 anchors.bottomMargin: favoriteItemDelegate.margin
-                colorGroup: PlasmaCore.Theme.ComplementaryColorGroup
+                //colorGroup: Kirigami.Theme.ComplementaryColorGroup
                 animated: false
-                usesPlasmaTheme: true
                 source: model.decoration !== undefined ? model.decoration : ""
                 smooth: true
             }
@@ -81,7 +80,7 @@ Item {
                 maximumLineCount: 1
                 elide: Text.ElideRight
                 wrapMode: Text.Wrap
-                color: theme.textColor
+                color: Kirigami.Theme.textColor
                 text: ("name" in model ? model.name : ("display" in model ? model.display : "name"))
             }
         }

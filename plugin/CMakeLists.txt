@@ -12,8 +12,8 @@ add_library(simplemenuplugin SHARED ${simplemenuplugin_SRCS})
 target_link_libraries(simplemenuplugin
         Qt::Core
         Qt::Qml
-        # KF5::Plasma
-        # KF5::I18n
+        # KF6::Plasma
+        # KF6::I18n
 )
 
 install(TARGETS simplemenuplugin DESTINATION ${KDE_INSTALL_QMLDIR}/com/github/jurgencruz/simplemenu)

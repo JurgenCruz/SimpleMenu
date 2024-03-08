@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 import QtQuick 2.15
-import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.plasma.extras as PlasmaExtras
 
 FocusScope {
     property alias model: listView.model
@@ -79,7 +79,7 @@ FocusScope {
         activeFocusOnTab: true
         focus: true
         boundsBehavior: Flickable.StopAtBounds
-        highlight: PlasmaComponents.Highlight
+        highlight: PlasmaExtras.Highlight
         {
             visible: listView.currentItem ? listView.currentItem.enabled : false
         }
@@ -109,7 +109,7 @@ FocusScope {
             event.accepted = true;
         }
 
-        function tryNavigateUp(): boolean {
+        function tryNavigateUp(): bool {
             const newIndex = getNextAvailable(currentIndex, false);
             if (newIndex === currentIndex) {
                 return false;
@@ -119,7 +119,7 @@ FocusScope {
             return true;
         }
 
-        function tryNavigateDown(): boolean {
+        function tryNavigateDown(): bool {
             const newIndex = getNextAvailable(currentIndex, true);
             if (newIndex === currentIndex) {
                 return false;
@@ -152,7 +152,7 @@ FocusScope {
             return ind;
         }
 
-        function getIsItemAvailable(ind): boolean {
+        function getIsItemAvailable(ind): bool {
             if (ind < 0 || ind > count - 1) {
                 return false;
             }

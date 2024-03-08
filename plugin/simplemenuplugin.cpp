@@ -23,7 +23,7 @@
 #include "categorylistmodel.h"
 
 void SimpleMenuPlugin::registerTypes(const char *uri) {
-    Q_ASSERT(uri == QLatin1String("com.github.jurgencruz.simplemenu"));
+    Q_ASSERT(QLatin1String(uri) == QLatin1String("com.github.jurgencruz.simplemenu"));
     qmlRegisterType<Flattener>(uri, 1, 0, "Flattener");
     qmlRegisterType<ProxyListModel>(uri, 1, 0, "ProxyListModel");
     qmlRegisterType<DelegateInfo>(uri, 1, 0, "DelegateInfo");

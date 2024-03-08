@@ -17,10 +17,12 @@
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15 as QQC2
-import org.kde.kirigami 2.10 as Kirigami
-import org.kde.kcm 1.1 as KCM
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
+import org.kde.kirigami as Kirigami
+import org.kde.kcmutils as KCM
+import org.kde.plasma.core as PlasmaCore
+import org.kde.iconthemes as KIconThemes
+import org.kde.kirigami as Kirigami
+import org.kde.ksvg as KSvg
 
 KCM.SimpleKCM {
     property alias cfg_icon: iconButton.value
@@ -35,10 +37,10 @@ KCM.SimpleKCM {
             id: iconButton
             Kirigami.FormData.label: i18n("Icon:")
             property string value: ''
-            implicitWidth: previewFrame.width + PlasmaCore.Units.smallSpacing * 2
-            implicitHeight: previewFrame.height + PlasmaCore.Units.smallSpacing * 2
+            implicitWidth: previewFrame.width + Kirigami.Units.smallSpacing * 2
+            implicitHeight: previewFrame.height + Kirigami.Units.smallSpacing * 2
 
-            KQuickAddons.IconDialog {
+            KIconThemes.IconDialog {
                 id: iconDialog
                 onIconNameChanged: iconButton.value = iconName || "start-here-kde"
             }
@@ -47,16 +49,16 @@ KCM.SimpleKCM {
                 iconDialog.open()
             }
 
-            PlasmaCore.FrameSvgItem {
+            KSvg.FrameSvgItem {
                 id: previewFrame
                 anchors.centerIn: parent
                 imagePath: plasmoid.location === PlasmaCore.Types.Vertical || plasmoid.location === PlasmaCore.Types.Horizontal ? "widgets/panel-background" : "widgets/background"
-                width: PlasmaCore.Units.iconSizes.large + fixedMargins.left + fixedMargins.right
-                height: PlasmaCore.Units.iconSizes.large + fixedMargins.top + fixedMargins.bottom
+                width: Kirigami.Units.iconSizes.large + fixedMargins.left + fixedMargins.right
+                height: Kirigami.Units.iconSizes.large + fixedMargins.top + fixedMargins.bottom
 
-                PlasmaCore.IconItem {
+                Kirigami.Icon {
                     anchors.centerIn: parent
-                    width: PlasmaCore.Units.iconSizes.large
+                    width: Kirigami.Units.iconSizes.large
                     height: width
                     source: iconButton.value
                 }
@@ -70,19 +72,19 @@ KCM.SimpleKCM {
             valueRole: "value"
             model: [
                 {
-                    value: PlasmaCore.Units.iconSizes.smallMedium,
+                    value: Kirigami.Units.iconSizes.smallMedium,
                     text: i18n("Small")
                 },
                 {
-                    value: PlasmaCore.Units.iconSizes.medium,
+                    value: Kirigami.Units.iconSizes.medium,
                     text: i18n("Medium")
                 },
                 {
-                    value: PlasmaCore.Units.iconSizes.large,
+                    value: Kirigami.Units.iconSizes.large,
                     text: i18n("Large")
                 },
                 {
-                    value: PlasmaCore.Units.iconSizes.huge,
+                    value: Kirigami.Units.iconSizes.huge,
                     text: i18n("Huge")
                 },
             ]

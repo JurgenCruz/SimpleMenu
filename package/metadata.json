@@ -16,7 +16,7 @@
     "Version": "1.0",
     "Website": ""
   },
-  "X-Plasma-API": "declarativeappletscript",
+  "X-Plasma-API-Minimum-Version": "6.0",
   "KPackageStructure": "Plasma/Applet",
   "X-Plasma-Provides": [
     "org.kde.plasma.launchermenu"
