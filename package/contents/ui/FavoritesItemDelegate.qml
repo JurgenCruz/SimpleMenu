@@ -59,7 +59,6 @@ Item {
                 anchors.leftMargin: favoriteItemDelegate.margin
                 anchors.topMargin: favoriteItemDelegate.margin
                 anchors.bottomMargin: favoriteItemDelegate.margin
-                //colorGroup: Kirigami.Theme.ComplementaryColorGroup
                 animated: false
                 source: model.decoration !== undefined ? model.decoration : ""
                 smooth: true

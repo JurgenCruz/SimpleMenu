@@ -33,7 +33,7 @@ PlasmoidItem {
     {
         id: rootModel
         autoPopulate: false
-        appletInterface: plasmoid
+        appletInterface: simpleMenu
         flat: true
         sorted: true
         showSeparators: false
