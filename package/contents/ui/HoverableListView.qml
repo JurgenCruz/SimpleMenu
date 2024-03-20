@@ -78,6 +78,8 @@ FocusScope {
         clip: true
         activeFocusOnTab: true
         focus: true
+        flickDeceleration: 0.000001
+        maximumFlickVelocity: 100000
         boundsBehavior: Flickable.StopAtBounds
         highlight: PlasmaExtras.Highlight
         {
