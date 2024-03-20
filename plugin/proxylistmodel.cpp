@@ -55,8 +55,8 @@ QVariant ProxyListModel::data(const QModelIndex &index, int role) const {
     if (listIndex == -1) {
         return QVariant();
     }
-    QAbstractListModel *list = m_entryList.at(listIndex);
-    QModelIndex newIndex = createIndex(itemIndex, 0);
+    QAbstractItemModel *list = m_entryList.at(listIndex);
+    QModelIndex newIndex = list->index(itemIndex, 0);
     return list->data(newIndex, role);
 }
 
@@ -71,11 +71,7 @@ int ProxyListModel::rowCount(const QModelIndex &parent) const {
     return sum;
 }
 
-void ProxyListModel::addList(QAbstractListModel *list) {
-    const int size = list->rowCount();
-    if (size == 0) {
-        return;
-    }
+void ProxyListModel::addList(QAbstractItemModel *list) {
     m_entryList << list;
 }
 
@@ -85,7 +81,7 @@ DelegateInfo *ProxyListModel::getInfo(int row) {
     if (listIndex == -1) {
         return nullptr;
     }
-    QAbstractListModel *list = m_entryList.at(listIndex);
+    QAbstractItemModel *list = m_entryList.at(listIndex);
     return new DelegateInfo(itemIndex, list, this);
 }
 

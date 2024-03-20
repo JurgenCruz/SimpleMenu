@@ -22,19 +22,21 @@ Flattener::Flattener(QObject *parent) : QObject(parent) {}
 
 Flattener::~Flattener() = default;
 
-ProxyListModel *Flattener::flatten(const QList<QAbstractListModel *> &models, const QList<QString> &categories) {
+ProxyListModel *Flattener::flatten(const QList<QAbstractItemModel *> &models, const QList<QString> &categories) {
     auto includeCategories = categories.count() != 0 && models.count() == categories.count();
     auto *proxy = new ProxyListModel(this);
     for (int i = 0; i < models.count(); ++i) {
         auto m = models.at(i);
-        if (includeCategories) {
-            proxy->addList(createCategoryList(categories.at(i)));
+        if (m->rowCount() != 0) {
+            if (includeCategories) {
+                proxy->addList(createCategoryList(categories.at(i)));
+            }
+            proxy->addList(m);
         }
-        proxy->addList(m);
     }
     return proxy;
 }
 
-QAbstractListModel *Flattener::createCategoryList(const QString &name) {
+QAbstractItemModel *Flattener::createCategoryList(const QString &name) {
     return new CategoryListModel(name, this);
 }

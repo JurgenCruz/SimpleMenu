@@ -17,6 +17,7 @@
 
 #pragma once
 
+#include <QAbstractItemModel>
 #include <QAbstractListModel>
 #include <QModelIndex>
 #include <QVariant>
@@ -52,7 +53,7 @@ public:
 
     int rowCount(const QModelIndex &parent) const override;
 
-    void addList(QAbstractListModel *list);
+    void addList(QAbstractItemModel *list);
 
     Q_INVOKABLE DelegateInfo *getInfo(int row);
 
@@ -61,5 +62,5 @@ private:
 
     int getListIndex(int &i) const;
 
-    QList<QAbstractListModel *> m_entryList;
+    QList<QAbstractItemModel *> m_entryList;
 };

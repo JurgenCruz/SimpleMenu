@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include <QAbstractListModel>
+#include <QAbstractItemModel>
 #include <QmlTypeAndRevisionsRegistration>
 #include "proxylistmodel.h"
 
@@ -29,8 +29,8 @@ public:
 
     ~Flattener() override;
 
-    Q_INVOKABLE ProxyListModel *flatten(const QList<QAbstractListModel *> &models, const QList<QString> &categories);
+    Q_INVOKABLE ProxyListModel *flatten(const QList<QAbstractItemModel *> &models, const QList<QString> &categories);
 
 private:
-    QAbstractListModel *createCategoryList(const QString &name);
+    QAbstractItemModel *createCategoryList(const QString &name);
 };

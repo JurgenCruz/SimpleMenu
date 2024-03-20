@@ -18,22 +18,23 @@
 #pragma once
 
 #include <QObject>
-#include <QAbstractListModel>
+#include <QAbstractItemModel>
 
 class DelegateInfo : public QObject {
 Q_OBJECT
+
     Q_PROPERTY(int index READ index)
-    Q_PROPERTY(QAbstractListModel *model READ model)
+    Q_PROPERTY(QAbstractItemModel *model READ model)
 public:
-    explicit DelegateInfo(int index = -1, QAbstractListModel *model = nullptr, QObject *parent = nullptr);
+    explicit DelegateInfo(int index = -1, QAbstractItemModel *model = nullptr, QObject *parent = nullptr);
 
     ~DelegateInfo() override;
 
     int index() const;
 
-    QAbstractListModel *model() const;
+    QAbstractItemModel *model() const;
 
 private:
     int m_index;
-    QAbstractListModel *m_model;
+    QAbstractItemModel *m_model;
 };

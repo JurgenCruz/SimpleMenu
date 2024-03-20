@@ -58,9 +58,18 @@ PlasmoidItem {
     readonly property RunnerModel runnerModel: RunnerModel
     {
         id: runnerModel
-        appletInterface: plasmoid
+        appletInterface: simpleMenu
         favoritesModel: rootModel.favoritesModel
         mergeResults: false
+        runners: {
+            const results = ["krunner_services",
+                "krunner_systemsettings",
+                "krunner_sessions",
+                "krunner_powerdevil",
+                "calculator",
+                "unitconverter"];
+            return results;
+        }
     }
 
     readonly property KSortFilterProxyModel favoritesModel: KSortFilterProxyModel
@@ -81,13 +90,13 @@ PlasmoidItem {
     }
 
     Component.onCompleted: {
-        if (plasmoid.hasOwnProperty("activationTogglesExpanded")) {
-            plasmoid.activationTogglesExpanded = true
+        if (simpleMenu.hasOwnProperty("activationTogglesExpanded")) {
+            simpleMenu.activationTogglesExpanded = true
         }
-        plasmoid.hideOnWindowDeactivate = true;
+        simpleMenu.hideOnWindowDeactivate = true;
     }
 
     function close() {
-        Plasmoid.expanded = false
+        simpleMenu.expanded = false
     }
 }

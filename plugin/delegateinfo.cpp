@@ -17,7 +17,7 @@
 
 #include "delegateinfo.h"
 
-DelegateInfo::DelegateInfo(int index, QAbstractListModel *model, QObject *parent)
+DelegateInfo::DelegateInfo(int index, QAbstractItemModel *model, QObject *parent)
         : QObject(parent),
           m_index(index),
           m_model(model) {}
@@ -28,6 +28,6 @@ int DelegateInfo::index() const {
     return m_index;
 }
 
-QAbstractListModel *DelegateInfo::model() const {
+QAbstractItemModel *DelegateInfo::model() const {
     return m_model;
 }
