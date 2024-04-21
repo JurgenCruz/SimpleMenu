@@ -1,6 +1,9 @@
 # Simple Menu
 
-A Simple Menu launcher for plasma KDE.
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/jurgencruz/simplemenu/blob/master/README.md)
+[![es](https://img.shields.io/badge/lang-es-blue.svg)](https://github.com/jurgencruz/simplemenu/blob/master/README.es.md)
+
+A Simple Menu launcher for KDE Plasma.
 
 ## Features
 
@@ -14,14 +17,23 @@ That's it! keeping it simple.
 ## Screenshots
 
 ### Favorites
+
 ![Favorites](https://github.com/jurgencruz/simplemenu/blob/master/img/favorites.png?raw=true)
+
 ### All Apps
+
 ![All Apps](https://github.com/jurgencruz/simplemenu/blob/master/img/all-apps.png?raw=true)
+
 ### Search
+
 ![Search](https://github.com/jurgencruz/simplemenu/blob/master/img/search.png?raw=true)
+
 ### Context Menu
+
 ![Context Menu](https://github.com/jurgencruz/simplemenu/blob/master/img/context-menu.png?raw=true)
+
 ### Config
+
 ![Config](https://github.com/jurgencruz/simplemenu/blob/master/img/config.png?raw=true)
 
 ## Installation
