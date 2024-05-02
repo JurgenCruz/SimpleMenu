@@ -21,10 +21,12 @@ function getActions(i18n, actionList, favoriteModel, favoriteId) {
     const actions = createFavoriteActions(i18n, favoriteModel, favoriteId);
     if (actions) {
         if (actionList && actionList.length > 0) {
-            actionList.push({
+            const actionListCopy = Array.from(actionList);
+            actionListCopy.push({
                 "type": "separator"
             });
-            actionList.push.apply(actionList, actions);
+            actionListCopy.push.apply(actionListCopy, actions);
+            actionList = actionListCopy;
         } else {
             actionList = actions;
         }
