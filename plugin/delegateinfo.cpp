@@ -17,10 +17,11 @@
 
 #include "delegateinfo.h"
 
-DelegateInfo::DelegateInfo(int index, QAbstractItemModel *model, QObject *parent)
-        : QObject(parent),
-          m_index(index),
-          m_model(model) {}
+DelegateInfo::DelegateInfo(const int index, QAbstractItemModel *model, QObject *parent)
+    : QObject(parent),
+      m_index(index),
+      m_model(model) {
+}
 
 DelegateInfo::~DelegateInfo() = default;
 

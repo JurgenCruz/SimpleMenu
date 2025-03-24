@@ -17,7 +17,6 @@
 
 #pragma once
 
-#include <QObject>
 #include <QAbstractItemModel>
 
 class DelegateInfo : public QObject {

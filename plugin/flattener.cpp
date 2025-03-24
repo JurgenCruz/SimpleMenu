@@ -18,16 +18,16 @@
 #include "flattener.h"
 #include "categorylistmodel.h"
 
-Flattener::Flattener(QObject *parent) : QObject(parent) {}
+Flattener::Flattener(QObject *parent) : QObject(parent) {
+}
 
 Flattener::~Flattener() = default;
 
 ProxyListModel *Flattener::flatten(const QList<QAbstractItemModel *> &models, const QList<QString> &categories) {
-    auto includeCategories = categories.count() != 0 && models.count() == categories.count();
+    const auto includeCategories = categories.count() != 0 && models.count() == categories.count();
     auto *proxy = new ProxyListModel(this);
     for (int i = 0; i < models.count(); ++i) {
-        auto m = models.at(i);
-        if (m->rowCount() != 0) {
+        if (const auto m = models.at(i); m->rowCount() != 0) {
             if (includeCategories) {
                 proxy->addList(createCategoryList(categories.at(i)));
             }

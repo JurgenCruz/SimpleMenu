@@ -17,11 +17,6 @@
 
 #pragma once
 
-#include <QAbstractItemModel>
-#include <QAbstractListModel>
-#include <QModelIndex>
-#include <QVariant>
-#include <QList>
 #include "delegateinfo.h"
 
 enum {

@@ -18,7 +18,8 @@
 #include "proxylistmodel.h"
 
 ProxyListModel::ProxyListModel(QObject *parent)
-        : QAbstractListModel(parent) {}
+    : QAbstractListModel(parent) {
+}
 
 ProxyListModel::~ProxyListModel() = default;
 
@@ -46,17 +47,17 @@ QHash<int, QByteArray> ProxyListModel::roleNames() const {
     return staticRoleNames();
 }
 
-QVariant ProxyListModel::data(const QModelIndex &index, int role) const {
+QVariant ProxyListModel::data(const QModelIndex &index, const int role) const {
     if (!index.isValid()) {
         return QVariant();
     }
     int itemIndex = index.row();
-    int listIndex = getListIndex(itemIndex);
+    const int listIndex = getListIndex(itemIndex);
     if (listIndex == -1) {
         return QVariant();
     }
-    QAbstractItemModel *list = m_entryList.at(listIndex);
-    QModelIndex newIndex = list->index(itemIndex, 0);
+    const QAbstractItemModel *list = m_entryList.at(listIndex);
+    const QModelIndex newIndex = list->index(itemIndex, 0);
     return list->data(newIndex, role);
 }
 
@@ -65,7 +66,7 @@ int ProxyListModel::rowCount(const QModelIndex &parent) const {
         return 0;
     }
     int sum = 0;
-    for (auto size: m_entryList) {
+    for (const auto size: m_entryList) {
         sum += size->rowCount();
     }
     return sum;
@@ -77,7 +78,7 @@ void ProxyListModel::addList(QAbstractItemModel *list) {
 
 DelegateInfo *ProxyListModel::getInfo(int row) {
     int itemIndex = row;
-    int listIndex = getListIndex(itemIndex);
+    const int listIndex = getListIndex(itemIndex);
     if (listIndex == -1) {
         return nullptr;
     }
@@ -86,7 +87,7 @@ DelegateInfo *ProxyListModel::getInfo(int row) {
 }
 
 int ProxyListModel::getListIndex(int &i) const {
-    const int entries = m_entryList.size();
+    const qsizetype entries = m_entryList.size();
     if (entries == 0) {
         return -1;
     }

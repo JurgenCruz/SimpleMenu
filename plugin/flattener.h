@@ -17,8 +17,7 @@
 
 #pragma once
 
-#include <QAbstractItemModel>
-#include <QmlTypeAndRevisionsRegistration>
+#include <qqmlintegration.h>
 #include "proxylistmodel.h"
 
 class Flattener : public QObject {
