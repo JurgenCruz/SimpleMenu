@@ -67,13 +67,33 @@ Item {
 
         Rectangle {
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            Layout.fillWidth: !model.isSeparator
+            Layout.fillWidth: true
             Layout.fillHeight: true
-            width: model.isSeparator ? fontMetrics.advanceWidth(label.text) + (2 * favoriteItemDelegate.margin) : undefined
             color: 'transparent'
+            visible: !model.isSeparator
 
             PlasmaComponents.Label {
                 id: label
+                anchors.fill: parent
+                anchors.margins: favoriteItemDelegate.margin
+                maximumLineCount: 1
+                elide: Text.ElideRight
+                wrapMode: Text.Wrap
+                color: Kirigami.Theme.textColor
+                text: ("name" in model ? model.name : ("display" in model ? model.display : "name"))
+            }
+        }
+
+        Rectangle {
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+            Layout.fillWidth: false
+            Layout.fillHeight: true
+            width: fontMetrics.advanceWidth(label.text) + (2 * favoriteItemDelegate.margin)
+            color: 'transparent'
+            visible: !!model.isSeparator
+
+            PlasmaComponents.Label {
+                id: labelSeparator
                 anchors.fill: parent
                 anchors.margins: favoriteItemDelegate.margin
                 maximumLineCount: 1
