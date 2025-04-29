@@ -75,6 +75,8 @@ This project is under the [GNU GPL-3.0](https://choosealicense.com/licenses/gpl-
   issue, and I'll try to fix it.
 - If you wish to improve Simple Menu, please submit a PR with your changes and I will review them. Here is a guide on
   how to develop KDE Plasmoids: https://develop.kde.org/docs/plasma/widget/setup/.
+- Internally, Simple Menu uses Plasma Kicker's code. You can find it
+  here: https://invent.kde.org/plasma/plasma-workspace/-/tree/master/applets/kicker & https://invent.kde.org/plasma/plasma-desktop/-/tree/master/applets/kicker
 - If you wish to help with a translation, copy the `package/translate/template.pot` file and change the name to your
   locale's code (e.g. en, de, fr, etc.) and the extension to `.po`. Then just add your translation in the `msgstr`
   field. For more information you can look at https://zren.github.io/kde/docs/widget/#translations-i18n.
