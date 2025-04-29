@@ -76,6 +76,7 @@ PlasmoidItem {
     {
         sourceModel: rootModel.favoritesModel
         sortRoleName: "name"
+        sortCaseSensitivity: Qt.CaseInsensitive
 
         function trigger(i: int, actionId: string, arguments) {
             var index = mapToSource(this.index(i, 0));
