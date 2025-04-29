@@ -154,12 +154,12 @@ FocusScope {
             return ind;
         }
 
-        function getIsItemAvailable(ind): bool {
+        function getIsItemAvailable(ind): boolean {
             if (ind < 0 || ind > count - 1) {
                 return false;
             }
-
-            return itemAtIndex(ind).enabled;
+            let item = itemAtIndex(ind);
+            return item ? item.enabled : false;
         }
 
         function selectAvailableItem() {
